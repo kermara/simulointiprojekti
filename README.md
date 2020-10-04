@@ -11,17 +11,17 @@ Vaatimukset simulaattorille Projektityössä toteutetaan simulaattori, joka täy
 
 Tässä projektissa käytetään seuraavia suureita:
 •	saapuneiden asiakkaiden lukumäärä (A, arrival count)
-o	valikkoon asti päässeiden asiakkaiden lukumäärä
+  -	valikkoon asti päässeiden asiakkaiden lukumäärä
 •	palveltujen asiakkaiden lukumäärä (C, completed count)
-o	asiakas poistuu tyytyväisenä palvelusta
+  -	asiakas poistuu tyytyväisenä palvelusta
 •	palvelupisteen aktiiviaika (B, busy time)
-o	kun asiakkaan toiminta valikosta eteenpäin
+  -	kun asiakkaan toiminta valikosta eteenpäin
 •	simuloinnin kokonaisaika(T, time)
-o	simuloinnille asetetaan kokonaisaika
+  -	simuloinnille asetetaan kokonaisaika
 •	palvelupisteen käyttöaste (U, utilization) on käytön suhde kapasiteettiin U= B/T
-o	asiakkaan toiminnan aika suhteessa kokonaisaikaan
+  -	asiakkaan toiminnan aika suhteessa kokonaisaikaan
 •	suoritusteho (X, throughput) on palveltujen asiakkaiden lukumäärä aikayksikössä  X = C/T
-o	kuinka montaa asiakasta ehditään palvella suhteessa kokonaisaikaan 
+  -	kuinka montaa asiakasta ehditään palvella suhteessa kokonaisaikaan 
 •	palvelupisteen keskimääräinen palveluaika (S, service time) S = B/C
 o	kuinka kauan palveluun keskimäärin menee
 •	palvelupisteen läpimenoaika, vasteaika (Ri, response time) = aika asiakkaan palvelu-jonoon saapumisesta palvelun päättymiseen (kuvaa sitä, että kyseessä on tietyn asi-akkaan kokema läpimenoaika). 
