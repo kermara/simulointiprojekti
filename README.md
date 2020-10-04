@@ -1,4 +1,4 @@
-# simuointiprojekti
+# simulointiprojekti
 
 Vaatimukset simulaattorille Projektityössä toteutetaan simulaattori, joka täyttää kaikki seuraavista vaatimuksista: 
 1.   Käsitteellisessä mallissa on vähintään 4 palvelupistettä.  
