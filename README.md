@@ -23,12 +23,12 @@ Tässä projektissa käytetään seuraavia suureita:
 •	suoritusteho (X, throughput) on palveltujen asiakkaiden lukumäärä aikayksikössä  X = C/T
   -	kuinka montaa asiakasta ehditään palvella suhteessa kokonaisaikaan 
 •	palvelupisteen keskimääräinen palveluaika (S, service time) S = B/C
-o	kuinka kauan palveluun keskimäärin menee
+, kuinka kauan palveluun keskimäärin menee
 •	palvelupisteen läpimenoaika, vasteaika (Ri, response time) = aika asiakkaan palvelu-jonoon saapumisesta palvelun päättymiseen (kuvaa sitä, että kyseessä on tietyn asi-akkaan kokema läpimenoaika). 
-o	sen jälkeen, kun asiakas on valinnut valikosta tietyn palvelun ja häntä on pal-veltu
+, sen jälkeen, kun asiakas on valinnut valikosta tietyn palvelun ja häntä on pal-veltu
 •	kokonaisoleskeluaika palvelupisteessä (W, waiting time) kaikkien asiakkaiden läpime-noaikojen summa
-o	kaikkien asiakkaiden läpimenoajat lasketaan yhteen 
+, kaikkien asiakkaiden läpimenoajat lasketaan yhteen 
 •	keskimääräinen läpimenoaika (R, response time) R = W/C
 •	keskimääräinen jononpituus (palveltava mukana) N = W/
-o	palvelupistekohtainen
+,palvelupistekohtainen
 
