@@ -11,9 +11,10 @@ public interface IKontrolleri {
 	// moottori:
 	
 	public void naytaLoppuaika(long aika);
-	//public void visualisoiAsiakas(int id);
+	public void visualisoiAsiakas(int id);
 	public void naytaAsiakasmaara(int i);
 	public void naytaJononpituus(int i);
-	public void paivitaNaytto(int jononPituus, int jononPituus2, int jononPituus3, int jononPituus4, int i);
+	public void paivitaNaytto(int jononPituus, int jononPituus2, int jononPituus3, int jononPituus4);
+	public void naytaAsiakkaat(int jononPituus, int jononPituus2, int jononPituus3, int jononPituus4);
 
 }

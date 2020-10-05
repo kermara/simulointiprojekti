@@ -37,8 +37,6 @@ public class Kontrolleri implements IKontrolleri {
 	public void naytaLoppuaika(long aika) {
 		Platform.runLater(()->igui.setLoppuaika(aika));
 	}
-	
-	/*
 
 	@Override
 	public void visualisoiAsiakas(int id) {
@@ -50,11 +48,14 @@ public class Kontrolleri implements IKontrolleri {
 			}
 		});
 	}
-	*/
 	
 	
 	public void paivitaNaytto(int lkm1, int lkm2, int lkm3, int lkm4) {
 	Platform.runLater(()->igui.getVisualisointi().paivitaNaytto(lkm1, lkm2, lkm3, lkm4));
+	}
+	
+	public void naytaAsiakkaat(int lkm1, int lkm2, int lkm3, int lkm4) {
+		Platform.runLater(()->igui.getVisualisointi().naytaAsiakkaat(lkm1, lkm2, lkm3, lkm4));
 	}
 	
 	

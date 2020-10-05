@@ -64,9 +64,7 @@ public void run() {
 		suoritaBTapahtumat();
 		yritaCTapahtumat();
 		
-
-		
-		kontrolleri.paivitaNaytto(palvelupisteet[0].jononPituus(), palvelupisteet[1].jononPituus(), palvelupisteet[2].jononPituus(), palvelupisteet[3].jononPituus(), palvelupisteet[3].getAsiakkaidenmaara());
+		kontrolleri.paivitaNaytto(palvelupisteet[0].jononPituus(), palvelupisteet[1].jononPituus(), palvelupisteet[2].jononPituus(), palvelupisteet[3].jononPituus());
 		Trace.out(Trace.Level.INFO, "0: " +(palvelupisteet[0].jononPituus()));
 		Trace.out(Trace.Level.INFO, "1: " +(palvelupisteet[1].jononPituus()));
 		Trace.out(Trace.Level.INFO, "2: " +(palvelupisteet[2].jononPituus()));
@@ -111,7 +109,7 @@ public void suoritaTapahtuma(Tapahtuma t) throws InterruptedException {
 			palvelupisteet[0].lisaaJonoon(a);
 			Kello.getInstance().getAika();
 			saapumisprosessi.luoSeuraavaSaapuminen();
-			//kontrolleri.visualisoiAsiakas(a.getId());
+			kontrolleri.visualisoiAsiakas(a.getId());
 			break;
 			
 		case VALIKKO: a = palvelupisteet[0].otajonosta();
@@ -133,7 +131,8 @@ public void suoritaTapahtuma(Tapahtuma t) throws InterruptedException {
 				System.out.println(a);
 			}
 			
-		
+			
+			
 			/*
 		
 			if (palvelupisteet[1].jononPituus() < palvelupisteet[2].jononPituus() 
@@ -185,6 +184,7 @@ private void tulokset() {
 	System.out.println("" + a.toString());
 	kontrolleri.naytaLoppuaika(kello.getAika());
 	kontrolleri.naytaAsiakasmaara(palvelupisteet[0].getAsiakkaidenmaara());
+	kontrolleri.naytaAsiakkaat(palvelupisteet[0].getAsiakkaidenmaara(), palvelupisteet[1].getAsiakkaidenmaara(), palvelupisteet[2].getAsiakkaidenmaara(), palvelupisteet[3].getAsiakkaidenmaara());
 	Trace.out(Trace.Level.INFO, "0: " +(palvelupisteet[0].jononPituus()));
 	Trace.out(Trace.Level.INFO, "1: " +(palvelupisteet[1].jononPituus()));
 	Trace.out(Trace.Level.INFO, "2: " +(palvelupisteet[2].jononPituus()));
