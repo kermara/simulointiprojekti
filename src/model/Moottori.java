@@ -19,19 +19,33 @@ public class Moottori extends Thread implements IMoottori {
 	
 	private Asiakas a;
 	
+	private long poistumisaikaValikko = 0;
+	private int asiakaslkmValikko = 0;
+	
+	private long poistumisaikaVaraus = 0;
+	private int asiakaslkmVaraus= 0;
+	
+	private long poistumisaikaPeruutus = 0;
+	private int asiakaslkmPeruutus= 0;
+	
+	private long poistumisaikaNeuvonta = 0;
+	private int asiakaslkmNeuvonta= 0;
+	
 	
 	public Moottori(IKontrolleri kontrolleri) {
 		this.kontrolleri = kontrolleri;
+		int vasen = kontrolleri.syoteNormalVasen();
+		int oikea = kontrolleri.syoteNormalOikea();
 		
-		palvelupisteet[0] = new Palvelupiste(new Normal(6,5), this, TapahtumanTyyppi.VALIKKO);
-		palvelupisteet[1] = new Palvelupiste(new Normal(4,2), this, TapahtumanTyyppi.VARAUS);
-		palvelupisteet[2] = new Palvelupiste(new Normal(3,2), this, TapahtumanTyyppi.PERUUTUS);
-		palvelupisteet[3] = new Palvelupiste(new Normal(4,3), this, TapahtumanTyyppi.NEUVONTA);
+		palvelupisteet[0] = new Palvelupiste(new Normal(2,1), this, TapahtumanTyyppi.VALIKKO);
+		palvelupisteet[1] = new Palvelupiste(new Normal(10,3), this, TapahtumanTyyppi.VARAUS);
+		palvelupisteet[2] = new Palvelupiste(new Normal(10,2), this, TapahtumanTyyppi.PERUUTUS);
+		palvelupisteet[3] = new Palvelupiste(new Normal(6,3), this, TapahtumanTyyppi.NEUVONTA);
 		
 		kello = Kello.getInstance();
 		kello.setAika(0);
 		
-		saapumisprosessi = new Saapumisprosessi(this, new Normal(6,2), TapahtumanTyyppi.SAAPUMINENJONOON);
+		saapumisprosessi = new Saapumisprosessi(this, new Normal(3,2), TapahtumanTyyppi.SAAPUMINENJONOON);
 		tapahtumalista = new Tapahtumalista();
 		saapumisprosessi.luoSeuraavaSaapuminen(); //on eka saapuminen
 	}
@@ -110,23 +124,30 @@ public void suoritaTapahtuma(Tapahtuma t) throws InterruptedException {
 			Kello.getInstance().getAika();
 			saapumisprosessi.luoSeuraavaSaapuminen();
 			kontrolleri.visualisoiAsiakas(a.getId());
+			
 			break;
 			
 		case VALIKKO: a = palvelupisteet[0].otajonosta();
 		
-			int luku = (int) (Math.random() * 30) + 1;
+			poistumisaikaValikko += a.setMenoaika(Kello.getInstance().getAika());
+			asiakaslkmValikko++;
+ 			a.palveluraportti();
+		
+			int luku = (int) (Math.random() * 100) + 1;
 			
-			if(luku > 0 && luku <11) {
+			a.setTuloaika(Kello.getInstance().getAika());
+			
+			if(luku > 0 && luku <41) {
 				palvelupisteet[1].lisaaJonoon(a);
 				System.out.println(a);
 			}
 			
-			if(luku > 10 && luku <21) {
+			if(luku > 40 && luku <81) {
 				palvelupisteet[2].lisaaJonoon(a);
 				System.out.println(a);
 			}
 			
-			if(luku > 20 && luku <31) {
+			if(luku > 80 && luku <101) {
 				palvelupisteet[3].lisaaJonoon(a);
 				System.out.println(a);
 			}
@@ -152,17 +173,23 @@ public void suoritaTapahtuma(Tapahtuma t) throws InterruptedException {
 			break;
 			
 		case VARAUS: a = palvelupisteet[1].otajonosta();
-			a.setPoistumisaika(kello.getAika());
+			poistumisaikaVaraus += a.setMenoaika(Kello.getInstance().getAika());
+			asiakaslkmVaraus++;
+			a.palveluraportti();
 			System.out.println(a);
 			break;
 		
 		case PERUUTUS: a = palvelupisteet[2].otajonosta();
-			a.setPoistumisaika(kello.getAika());
+			poistumisaikaPeruutus += a.setMenoaika(Kello.getInstance().getAika());
+			asiakaslkmPeruutus++;
+			a.palveluraportti();
 			System.out.println(a);
 			break;
 		
 		case NEUVONTA: a = palvelupisteet[3].otajonosta();
-			a.setPoistumisaika(kello.getAika());
+			poistumisaikaNeuvonta += a.setMenoaika(Kello.getInstance().getAika());
+			asiakaslkmNeuvonta++;
+			a.palveluraportti();
 			System.out.println(a);
 			break;
 	}
@@ -177,8 +204,25 @@ public void yritaCTapahtumat() {
 }
 
 private void tulokset() {
-	System.out.println("Simulointi päättyi kello " + kello.getAika());
 	System.out.println("Tulokset" );
+	System.out.println("Saapuneiden asiakkaiden kokonaismäärä (A): " +(palvelupisteet[0].getAsiakkaidenmaara()));
+	
+	long paattymisAika = kello.getAika();
+	System.out.println("Simulointi päättyi kello eli simuloinnin kokonaisaika (T) " + paattymisAika);
+	
+	int pA = asiakaslkmVaraus + asiakaslkmPeruutus + asiakaslkmNeuvonta;
+	System.out.println("Palveltujen asiakkaiden kokonaismäärä (C): " + pA);
+	
+	System.out.println("Palvelupisteen Varaus aktiiviaika (B): " + palvelupisteet[1].getB());
+	System.out.println("Palvelupisteen Peruutus aktiiviaika (B): " + palvelupisteet[2].getB());
+	System.out.println("Palvelupisteen Neuvonta aktiiviaika (B): " + palvelupisteet[3].getB());
+	
+	System.out.println("Palvelupisteen Varaus käyttöaste (U): " + (palvelupisteet[1].getB()/(double)paattymisAika)*100);
+	System.out.println("Palvelupisteen Peruutus käyttöaste (U): " + (palvelupisteet[2].getB()/(double)paattymisAika)*100);
+	System.out.println("Palvelupisteen Neuvonta käyttöaste (U): " + (palvelupisteet[3].getB()/(double)paattymisAika)*100);
+	
+	System.out.println("Palvelupisteen suoritusteho (X): " + (asiakaslkmVaraus/(double)paattymisAika)*100);
+	
 	
 	a.getId();
 	System.out.println("" + a.toString());
@@ -195,7 +239,11 @@ private void tulokset() {
 	Trace.out(Trace.Level.INFO, "2: " +(palvelupisteet[2].getAsiakkaidenmaara()));
 	Trace.out(Trace.Level.INFO, "3: " +(palvelupisteet[3].getAsiakkaidenmaara()));
 	kontrolleri.naytaJononpituus(palvelupisteet[0].jononPituus());
+	System.out.println("Asiakaslukumäärät " + asiakaslkmValikko);
+	System.out.println("Palveluajat " + poistumisaikaValikko);
 }
+
+
 
 
 

@@ -16,5 +16,7 @@ public interface IKontrolleri {
 	public void naytaJononpituus(int i);
 	public void paivitaNaytto(int jononPituus, int jononPituus2, int jononPituus3, int jononPituus4);
 	public void naytaAsiakkaat(int jononPituus, int jononPituus2, int jononPituus3, int jononPituus4);
+	public int syoteNormalVasen();
+	public int syoteNormalOikea();
 
 }

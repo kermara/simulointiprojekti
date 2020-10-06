@@ -13,7 +13,7 @@ public class Palvelupiste {
 	private TapahtumanTyyppi palvelutyyppi;
 	private boolean varattu = false;
 	private int asiakkaidenmaara = 0;
-	
+	private long B = 0;
 	public Palvelupiste(ContinuousGenerator generaattori, Moottori moottori, TapahtumanTyyppi palvelutyyppi) {
 		this.generaattori = generaattori;
 		this.moottori = moottori;
@@ -34,6 +34,7 @@ public class Palvelupiste {
 	public void aloitaPalvelu() {
 		varattu = true;
 		long palveluaika = (long)generaattori.sample();
+		B += palveluaika;
 		moottori.uusiTapahtuma(new Tapahtuma(palvelutyyppi, Kello.getInstance().getAika() + palveluaika));
 	}
 	
@@ -51,6 +52,10 @@ public class Palvelupiste {
 	
 	public int getAsiakkaidenmaara() {
 		return asiakkaidenmaara;
+	}
+	
+	public long getB() {
+		return B;
 	}
 
 }

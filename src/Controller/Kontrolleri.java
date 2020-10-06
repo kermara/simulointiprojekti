@@ -66,6 +66,17 @@ public class Kontrolleri implements IKontrolleri {
 	public void naytaJononpituus(int i) {
 		Platform.runLater(()-> igui.setJononpituus(i));
 	}
+
+	@Override
+	public int syoteNormalVasen() {
+		return igui.getSyoteNormalVasen();
+	}
+
+	@Override
+	public int syoteNormalOikea() {
+
+		return igui.getSyoteNormalOikea();
+	}
 	
 	
 }

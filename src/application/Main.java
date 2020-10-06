@@ -221,4 +221,16 @@ public class Main extends Application implements IGUI{
 		this.jononp.setText(""+1);
 		
 	}
+
+	@Override
+	public int getSyoteNormalVasen() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getSyoteNormalOikea() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }
