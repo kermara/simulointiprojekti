@@ -45,6 +45,8 @@ public class Main extends Application implements IGUI{
 	private TextField tulos;
 	private TextField asiakasmaara;
 	private TextField jononp;
+	private TextField vasenluku;
+	private TextField oikealuku;
 	private ToggleGroup tg; 
 	private RadioButton kaynnistaButton;
 	private RadioButton hidastaButton;
@@ -72,7 +74,7 @@ public class Main extends Application implements IGUI{
 				}
 			});
 			
-			primaryStage.setTitle("Puhelinpalvelusimulaattori");
+			primaryStage.setTitle("Puhelinpalvelusimulaattori - Normaalijakauma");
 			primaryStage.getIcons().add(new Image("file:resources/images/icon.png"));
 			kaynnistaButton = new RadioButton();
 			kaynnistaButton.setText("Käynnistä");
@@ -140,11 +142,25 @@ public class Main extends Application implements IGUI{
 		viive.setFont(Font.font("Helvetica", FontWeight.NORMAL,15));
 		viive.setPrefWidth(150);
 		
+		Text vasenlukuText = new Text("Aseta jakauman korkeus: ");
+		
+		vasenluku = new TextField("Jakauman korkeus");
+		vasenluku .setFont(Font.font("Helvetica", FontWeight.NORMAL,15));
+		vasenluku .setPrefWidth(150);
+		
+		Text oikealukuText = new Text("Aseta jakauman leveys: ");
+		
+		oikealuku = new TextField("Jakauman leveys");
+		oikealuku .setFont(Font.font("Helvetica", FontWeight.NORMAL,15));
+		oikealuku.setPrefWidth(150);
+		
 		Text tulosText = new Text("Simuloinnin kokonaisaika (s): ");
 		
 		tulos = new TextField();
 		tulos.setFont(Font.font("Helvetica", FontWeight.NORMAL,10));
 		tulos.setPrefWidth(150);
+		
+		/*
 		
 		Text asiakasmaaraText = new Text("Palveltujen asiakkaiden määrä: ");	
 		
@@ -158,6 +174,7 @@ public class Main extends Application implements IGUI{
 		jononp.setPrefWidth(150);
 			
 		asiakasmaara.setPrefWidth(150);
+		*/
 		
 		
 		hbox = new HBox();
@@ -172,18 +189,25 @@ public class Main extends Application implements IGUI{
 		
 		grid.add(aikaText, 0, 0);
 		grid.add(aika,0,1);
-		grid.add(viiveText, 0, 2);
+		grid.add(viiveText,0, 2);
 		grid.add(viive,0, 3);
-		grid.add(toiminto, 0, 4);
-		grid.add(tulosText, 0, 5);
-		grid.add(tulos,0, 6);
+		grid.add(vasenlukuText, 0, 4);
+		grid.add(vasenluku,0,5);
+		grid.add(oikealukuText,0, 6);
+		grid.add(oikealuku,0,7);
+		grid.add(toiminto, 0, 8);
+		grid.add(tulosText, 0, 9);
+		grid.add(tulos,0, 10);
+		
+		/*
 		grid.add(asiakasmaaraText, 0, 7);
 		grid.add(asiakasmaara, 0, 8);
 		grid.add(jononpText, 0, 9);
 		grid.add(jononp, 0, 10);
+		*/
 		
 			
-		view = new View(400, 500);
+		view = new View(400, 400);
 		hbox.getChildren().addAll(grid, view);
 		return hbox;
 	}
@@ -207,30 +231,32 @@ public class Main extends Application implements IGUI{
 				this.tulos.setText("" + duration.toSeconds());
 	}
 	
-	public void setAsiakasmaara(int i) {
-		this.asiakasmaara.setText("" +i);
-	}
-
 	@Override
 	public View getVisualisointi() {
 			return view;
 	}
+	
+	@Override
+	public int getSyoteNormalVasen() {
+		return Integer.parseInt(vasenluku.getText());
+	}
+
+	@Override
+	public int getSyoteNormalOikea() {
+		return Integer.parseInt(oikealuku.getText());
+	}
+}
+	/*
+	public void setAsiakasmaara(int i) {
+		this.asiakasmaara.setText("" +i);
+	}
+
+	
 
 	@Override
 	public void setJononpituus(int i) {
 		this.jononp.setText(""+1);
 		
 	}
+	*/
 
-	@Override
-	public int getSyoteNormalVasen() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int getSyoteNormalOikea() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-}

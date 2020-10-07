@@ -31,6 +31,8 @@ public class Moottori extends Thread implements IMoottori {
 	private long poistumisaikaNeuvonta = 0;
 	private int asiakaslkmNeuvonta= 0;
 	
+	private int pA = 0;
+	
 	
 	public Moottori(IKontrolleri kontrolleri) {
 		this.kontrolleri = kontrolleri;
@@ -45,7 +47,7 @@ public class Moottori extends Thread implements IMoottori {
 		kello = Kello.getInstance();
 		kello.setAika(0);
 		
-		saapumisprosessi = new Saapumisprosessi(this, new Normal(3,2), TapahtumanTyyppi.SAAPUMINENJONOON);
+		saapumisprosessi = new Saapumisprosessi(this, new Normal(vasen,oikea), TapahtumanTyyppi.SAAPUMINENJONOON);
 		tapahtumalista = new Tapahtumalista();
 		saapumisprosessi.luoSeuraavaSaapuminen(); //on eka saapuminen
 	}
@@ -78,7 +80,8 @@ public void run() {
 		suoritaBTapahtumat();
 		yritaCTapahtumat();
 		
-		kontrolleri.paivitaNaytto(palvelupisteet[0].jononPituus(), palvelupisteet[1].jononPituus(), palvelupisteet[2].jononPituus(), palvelupisteet[3].jononPituus());
+		kontrolleri.paivitaNaytto(asiakaslkmValikko, getAsiakaslkmVaraus(), getAsiakaslkmPeruutus(), getAsiakaslkmNeuvonta());
+		//kontrolleri.paivitaNaytto(palvelupisteet[0].jononPituus(), palvelupisteet[1].jononPituus(), palvelupisteet[2].jononPituus(), palvelupisteet[3].jononPituus());
 		Trace.out(Trace.Level.INFO, "0: " +(palvelupisteet[0].jononPituus()));
 		Trace.out(Trace.Level.INFO, "1: " +(palvelupisteet[1].jononPituus()));
 		Trace.out(Trace.Level.INFO, "2: " +(palvelupisteet[2].jononPituus()));
@@ -203,6 +206,23 @@ public void yritaCTapahtumat() {
 	}
 }
 
+public int getAsiakaslkmVaraus() {
+	return asiakaslkmVaraus;
+}
+
+public int getAsiakaslkmPeruutus() {
+	return asiakaslkmPeruutus;
+}
+public int getAsiakaslkmNeuvonta() {
+	return asiakaslkmNeuvonta;
+}
+
+public int getpA() {
+	pA = asiakaslkmVaraus + asiakaslkmPeruutus+ getAsiakaslkmNeuvonta();
+	return pA;
+}
+
+
 private void tulokset() {
 	System.out.println("Tulokset" );
 	System.out.println("Saapuneiden asiakkaiden kokonaismäärä (A): " +(palvelupisteet[0].getAsiakkaidenmaara()));
@@ -210,7 +230,9 @@ private void tulokset() {
 	long paattymisAika = kello.getAika();
 	System.out.println("Simulointi päättyi kello eli simuloinnin kokonaisaika (T) " + paattymisAika);
 	
-	int pA = asiakaslkmVaraus + asiakaslkmPeruutus + asiakaslkmNeuvonta;
+	System.out.println("Palveltujen asiakkaiden kokonaismäärä  Varaus (C): " + asiakaslkmVaraus);
+	System.out.println("Palveltujen asiakkaiden kokonaismäärä  Peruutus (C): " + asiakaslkmPeruutus);
+	System.out.println("Palveltujen asiakkaiden kokonaismäärä  Neuvonta (C): " + asiakaslkmNeuvonta);
 	System.out.println("Palveltujen asiakkaiden kokonaismäärä (C): " + pA);
 	
 	System.out.println("Palvelupisteen Varaus aktiiviaika (B): " + palvelupisteet[1].getB());
@@ -221,13 +243,21 @@ private void tulokset() {
 	System.out.println("Palvelupisteen Peruutus käyttöaste (U): " + (palvelupisteet[2].getB()/(double)paattymisAika)*100);
 	System.out.println("Palvelupisteen Neuvonta käyttöaste (U): " + (palvelupisteet[3].getB()/(double)paattymisAika)*100);
 	
-	System.out.println("Palvelupisteen suoritusteho (X): " + (asiakaslkmVaraus/(double)paattymisAika)*100);
+	System.out.println("Palvelupisteen Varaus suoritusteho (X): " + (asiakaslkmVaraus/(double)paattymisAika)*100);
+	System.out.println("Palvelupisteen Peruutus suoritusteho (X): " + (asiakaslkmPeruutus/(double)paattymisAika)*100);
+	System.out.println("Palvelupisteen Neuvonta suoritusteho (X): " + (asiakaslkmNeuvonta/(double)paattymisAika)*100);
+	
+	System.out.println("Palvelupisteen Varaus keskimääräinen palveluaika (S): " + (palvelupisteet[1].getB()/(double)asiakaslkmVaraus));
+	System.out.println("Palvelupisteen Peruutus keskimääräinen palveluaika (S): " + (palvelupisteet[2].getB()/(double)asiakaslkmPeruutus));
+	System.out.println("Palvelupisteen Neuvonta keskimääräinen palveluaika (S): " + (palvelupisteet[3].getB()/(double)asiakaslkmNeuvonta));
+
+	
 	
 	
 	a.getId();
 	System.out.println("" + a.toString());
 	kontrolleri.naytaLoppuaika(kello.getAika());
-	kontrolleri.naytaAsiakasmaara(palvelupisteet[0].getAsiakkaidenmaara());
+	//kontrolleri.naytaAsiakasmaara(palvelupisteet[0].getAsiakkaidenmaara());
 	kontrolleri.naytaAsiakkaat(palvelupisteet[0].getAsiakkaidenmaara(), palvelupisteet[1].getAsiakkaidenmaara(), palvelupisteet[2].getAsiakkaidenmaara(), palvelupisteet[3].getAsiakkaidenmaara());
 	Trace.out(Trace.Level.INFO, "0: " +(palvelupisteet[0].jononPituus()));
 	Trace.out(Trace.Level.INFO, "1: " +(palvelupisteet[1].jononPituus()));
@@ -238,7 +268,7 @@ private void tulokset() {
 	Trace.out(Trace.Level.INFO, "1: " +(palvelupisteet[1].getAsiakkaidenmaara()));
 	Trace.out(Trace.Level.INFO, "2: " +(palvelupisteet[2].getAsiakkaidenmaara()));
 	Trace.out(Trace.Level.INFO, "3: " +(palvelupisteet[3].getAsiakkaidenmaara()));
-	kontrolleri.naytaJononpituus(palvelupisteet[0].jononPituus());
+	//kontrolleri.naytaJononpituus(palvelupisteet[0].jononPituus());
 	System.out.println("Asiakaslukumäärät " + asiakaslkmValikko);
 	System.out.println("Palveluajat " + poistumisaikaValikko);
 }

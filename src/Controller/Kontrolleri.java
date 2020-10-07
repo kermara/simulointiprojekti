@@ -51,22 +51,23 @@ public class Kontrolleri implements IKontrolleri {
 	
 	
 	public void paivitaNaytto(int lkm1, int lkm2, int lkm3, int lkm4) {
-	Platform.runLater(()->igui.getVisualisointi().paivitaNaytto(lkm1, lkm2, lkm3, lkm4));
+	//Platform.runLater(()->igui.getVisualisointi().paivitaNaytto(lkm1, lkm2, lkm3, lkm4));
 	}
 	
 	public void naytaAsiakkaat(int lkm1, int lkm2, int lkm3, int lkm4) {
 		Platform.runLater(()->igui.getVisualisointi().naytaAsiakkaat(lkm1, lkm2, lkm3, lkm4));
 	}
 	
-	
+	/*
 	public void naytaAsiakasmaara(int i) {
 		Platform.runLater(()-> igui.setAsiakasmaara(i));
 	}
+
 	
 	public void naytaJononpituus(int i) {
 		Platform.runLater(()-> igui.setJononpituus(i));
 	}
-
+	*/
 	@Override
 	public int syoteNormalVasen() {
 		return igui.getSyoteNormalVasen();

@@ -25,7 +25,7 @@ public class View extends Canvas{
 	public void tyhjennaNaytto() {
 		gc.setFill(Color.valueOf("#06D6A0"));
 		gc.fillRect(0,10, this.getWidth(), this.getHeight());
-		gc.strokeText("Simuloinnin visualisointi",220, 30);
+		gc.strokeText("Palvellut asiakkaat",270, 30);
 		
 		gc.strokeText("Valikko",25, 150);
 		gc.strokeText("Jonossa",125, 50);
@@ -36,43 +36,72 @@ public class View extends Canvas{
 		gc.drawImage(new Image("file:resources/images/ajanperuuttaminen.png"),220, 155);
 		gc.strokeText("3. Neuvonta",220, 250);
 		gc.drawImage(new Image("file:resources/images/neuvonta.png"), 220, 255);
-		gc.strokeText("Jonoon tulleet asiakkaat yhteensä", 25, 450);
+		gc.strokeText("Valikkoon tulleet asiakkaat yhteensä",25, 350);
 	}
 	
+	
 	public void paivitaNaytto(int lkm1, int lkm2, int lkm3, int lkm4) {
-		i = 100;
-		j = 110;
-		
-		gc.setFill(Color.BLACK);
+		//i = 100;
+		//j = 110;
 		
 		/*
-		for(int x = 0; x <lkm1; x++) {
-			gc.fillOval(i,j,10,10);
-				i = (10 + 12); //% this.getWidth();
-				j = (170); //this.getHeight();
-		}
-
-		*/
-	
-	
-		//gc.fillText("" + lkm1, 10, 170);
+		gc.setFill(Color.valueOf("#06D6A0"));
 		
-		for(int x = 0; x <lkm2; x++) {
+
+		for(int x = 0; x <lkm1; x++) {
+			gc.setFill(Color.valueOf("#06D6A0"));
 			gc.fillOval(i,j,10,10);
+			gc.setFill(Color.BLACK);
+				i = (10 + 12); //% this.getWidth();
+				j = 170; //%this.getHeight();
+		}
+		
+		*/
+
+
+	
+		
+		//gc.fillText("" + lkm1, 10, 170);
+
+		for(int x = 0; x <lkm2; x++) {
+			tyhjennaNaytto();
+			gc.fillOval(i,j,10,10);
+	
 			if (i >= 250) {
 				i = 130;
-				gc.setFill(Color.RED);
-				try {
-					Thread.sleep(1000);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
+				gc.setFill(Color.valueOf("#06D6A0"));
 			}
-				i = (130 + 10); //% this.getWidth();
-				j = (110 - 10); //% this.getHeight();
+				i = (130 + 30); //% this.getWidth();
+				j = (110 - 30); //% this.getHeight();
+				
 		}
+		/*
+		
+		for(int x = 0; x <lkm3; x++) {
+			gc.fillOval(i,j,10,10);
+	
+			if (i >= 250) {
+				i = 130;
+				gc.setFill(Color.valueOf("#06D6A0"));
+			}
+				i = (130 + 30); //% this.getWidth();
+				j = (190); //% this.getHeight();
+				
+		}
+		
+		for(int x = 0; x <lkm4; x++) {
+			gc.fillOval(i,j,10,10);
+	
+			if (i >= 250) {
+				i = 130;
+				gc.setFill(Color.valueOf("#06D6A0"));
+			}
+				i = (130 + 30); //% this.getWidth();
+				j = (270); //% this.getHeight();
+				
+		}
+			
+			
 		//gc.fillText("" + lkm2, 130, 110 );
 		
 	/*
@@ -88,7 +117,7 @@ public class View extends Canvas{
 		i = (i + 12) % this.getWidth();
 		j = (j + 12) % this.getHeight();
 		
-		*/
+	*/	
 	}
 	
 	public void naytaAsiakkaat(int lkm1, int lkm2, int lkm3, int lkm4) {
@@ -96,24 +125,27 @@ public class View extends Canvas{
 		j = 100;
 		gc.setFill(Color.BLACK);
 	
-		gc.fillText("" + lkm1, 300,450);
+		
 		gc.fillText("" + lkm2, i, j);
 		gc.fillText("" + lkm3, i, j + 100);
 		gc.fillText("" + lkm4, i, j +200);
-		
+		gc.fillText("" + lkm1, i, 350);
 	}
 	
+
+	
 	public void uusiAsiakas(int id) {
-		double i = 300;
-		double j = 450;
-		gc.setFill(Color.AZURE);
-		tyhjennaNaytto();
+		double i = 20;
+		double j = 20;
+		gc.setFill(Color.valueOf("#06D6A0"));
+		//tyhjennaNaytto();
 		gc.fillRect(i,j,10,10);
-		gc.setFill(Color.RED);
+		gc.setFill(Color.BLACK);
 		//gc.fillText("" + id, i, j);
 		i = (i + 12) % this.getWidth();
 		j = (j + 12) % this.getHeight();
 	}
+
 	
 	
 }
