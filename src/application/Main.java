@@ -14,11 +14,13 @@ import javafx.util.Duration;
 import model.Trace;
 import model.Trace.Level;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -39,6 +41,8 @@ public class Main extends Application implements IGUI{
 	//Käyttöliittymä
 	
 	HBox hbox;
+	
+	private Stage dialogStage;
 	
 	private TextField aika;
 	private TextField viive;
@@ -129,6 +133,7 @@ public class Main extends Application implements IGUI{
         toiminto.getChildren().add(hidastaButton); 
         //r.getChildren().add(l2); 
         
+     
         Text aikaText = new Text("Aseta simulointiaika (ms): ");
        
 		
@@ -159,6 +164,8 @@ public class Main extends Application implements IGUI{
 		tulos = new TextField();
 		tulos.setFont(Font.font("Helvetica", FontWeight.NORMAL,10));
 		tulos.setPrefWidth(150);
+		
+		
 		
 		/*
 		
@@ -215,12 +222,48 @@ public class Main extends Application implements IGUI{
 
 	@Override
 	public long getAika() {
-		
+		String errorMessage = "";
+
+            try {
+                Integer.parseInt(aika.getText());
+            } catch (NumberFormatException e) {
+                errorMessage += "Syötä simulointiaika numeroina\n"; 
+            }  
+            
+            if (errorMessage.length() != 0) {
+                 // Show the error message.
+                Alert alert = new Alert(AlertType.ERROR);
+                alert.initOwner(dialogStage);
+                alert.setTitle("Virheitä syötteissä");
+                alert.setHeaderText("Korjaa syöte");
+                alert.setContentText(errorMessage);
+                
+                alert.showAndWait();
+        }
+
 		return Long.parseLong(aika.getText());
 	}
 
 	@Override
 	public long getViive() {
+		String errorMessage = "";
+
+        try {
+            Integer.parseInt(viive.getText());
+        } catch (NumberFormatException e) {
+            errorMessage += "Syötä viive numeroina\n"; 
+        }  
+        
+        if (errorMessage.length() != 0) {
+             // Show the error message.
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.initOwner(dialogStage);
+            alert.setTitle("Virheitä syötteissä");
+            alert.setHeaderText("Korjaa syöte");
+            alert.setContentText(errorMessage);
+            
+            alert.showAndWait();
+    }
 			return Long.parseLong(viive.getText());
 	}
 
@@ -238,13 +281,94 @@ public class Main extends Application implements IGUI{
 	
 	@Override
 	public int getSyoteNormalVasen() {
+		String errorMessage = "";
+
+        try {
+            Integer.parseInt(vasenluku.getText());
+        } catch (NumberFormatException e) {
+            errorMessage += "Syötä jakaumankorkeus numeroina\n"; 
+        }  
+        
+        if (errorMessage.length() != 0) {
+             // Show the error message.
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.initOwner(dialogStage);
+            alert.setTitle("Virheitä syötteissä");
+            alert.setHeaderText("Korjaa syöte");
+            alert.setContentText(errorMessage);
+            
+            alert.showAndWait();
+    }
 		return Integer.parseInt(vasenluku.getText());
 	}
 
 	@Override
 	public int getSyoteNormalOikea() {
+		
+		String errorMessage = "";
+
+        try {
+            Integer.parseInt(oikealuku.getText());
+        } catch (NumberFormatException e) {
+            errorMessage += "Syötä jakauman korkeus numeroina\n"; 
+        }  
+        
+        if (errorMessage.length() != 0) {
+             // Show the error message.
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.initOwner(dialogStage);
+            alert.setTitle("Virheitä syötteissä");
+            alert.setHeaderText("Korjaa syöte");
+            alert.setContentText(errorMessage);
+            
+            alert.showAndWait();
+    }
 		return Integer.parseInt(oikealuku.getText());
 	}
+	
+	/*
+	  private boolean isInputValid() {
+	        
+
+	        if (viive.getText() == null || viive.getText().length() == 0) {
+	            try {
+	                Integer.parseInt(viive.getText());
+	            } catch (NumberFormatException e) {
+	                errorMessage += "Syötä viiveaika numeroina\n"; 
+	            }
+	        }
+	        if (vasenluku.getText() == null || vasenluku.getText().length() == 0) {
+	            try {
+	                Integer.parseInt(aika.getText());
+	            } catch (NumberFormatException e) {
+	                errorMessage += "Syötä jakauman korkeus numeroina\n"; 
+	            }
+	        }
+
+	        if (oikealuku.getText() == null || oikealuku.getText().length() == 0) {
+	        } else {
+	            try {
+	                Integer.parseInt(aika.getText());
+	            } catch (NumberFormatException e) {
+	                errorMessage += "Syötä jakauman leveys numeroina\n"; 
+	            }
+	        }
+
+	        if (errorMessage.length() == 0) {
+	            return true;
+	        } else {
+	            // Show the error message.
+	            Alert alert = new Alert(AlertType.ERROR);
+	            alert.initOwner(dialogStage);
+	            alert.setTitle("Virheitä syötteissä");
+	            alert.setHeaderText("Korjaa syötteet luvuiksi");
+	            alert.setContentText(errorMessage);
+	            
+	            alert.showAndWait();
+	            
+	            return false;
+	        }
+	    }
 }
 	/*
 	public void setAsiakasmaara(int i) {
@@ -259,4 +383,4 @@ public class Main extends Application implements IGUI{
 		
 	}
 	*/
-
+}

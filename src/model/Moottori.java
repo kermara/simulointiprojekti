@@ -218,56 +218,70 @@ public int getAsiakaslkmNeuvonta() {
 }
 
 public int getpA() {
-	pA = asiakaslkmVaraus + asiakaslkmPeruutus+ getAsiakaslkmNeuvonta();
+	int varaus = palvelupisteet[1].getAsiakkaidenmaara() - palvelupisteet[1].jononPituus();
+	int peruutus =   palvelupisteet[2].getAsiakkaidenmaara() - palvelupisteet[2].jononPituus();
+	int neuvonta =  palvelupisteet[3].getAsiakkaidenmaara() - palvelupisteet[3].jononPituus();
+	int pA = varaus + peruutus + neuvonta;
 	return pA;
 }
 
 
 private void tulokset() {
 	System.out.println("Tulokset" );
-	System.out.println("Saapuneiden asiakkaiden kokonaismäärä (A): " +(palvelupisteet[0].getAsiakkaidenmaara()));
+	
+	Trace.out(Trace.Level.INFO, "Saapuneiden asiakkaiden määrä valikko (A): " +(palvelupisteet[0].getAsiakkaidenmaara()));
+	Trace.out(Trace.Level.INFO, "Saapuneiden asiakkaiden määrä varaus (A): " +(palvelupisteet[1].getAsiakkaidenmaara()));
+	Trace.out(Trace.Level.INFO, "Saapuneiden asiakkaiden määrä peruutus (A): " +(palvelupisteet[2].getAsiakkaidenmaara()));
+	Trace.out(Trace.Level.INFO, "Saapuneiden asiakkaiden määrä neuvonta (A): " +(palvelupisteet[3].getAsiakkaidenmaara()));
+	Trace.out(Trace.Level.INFO, "\n");
+	
+	Trace.out(Trace.Level.INFO, "Jonon pituus lopussa valikko: " +(palvelupisteet[0].jononPituus()));
+	Trace.out(Trace.Level.INFO, "Jonon pituus lopussa varaus: " +(palvelupisteet[1].jononPituus()));
+	Trace.out(Trace.Level.INFO, "Jonon pituus lopussa peruutus: "  +(palvelupisteet[2].jononPituus()));
+	Trace.out(Trace.Level.INFO, "\"Jonon pituus lopussa neuvonta: " +(palvelupisteet[3].jononPituus()));
+	Trace.out(Trace.Level.INFO, "\n");
+	
 	
 	long paattymisAika = kello.getAika();
-	System.out.println("Simulointi päättyi kello eli simuloinnin kokonaisaika (T) " + paattymisAika);
+	Trace.out(Trace.Level.INFO, ("Simulointi päättyi kello eli simuloinnin kokonaisaika (T) " + paattymisAika));
+	Trace.out(Trace.Level.INFO,"\n");
 	
-	System.out.println("Palveltujen asiakkaiden kokonaismäärä  Varaus (C): " + asiakaslkmVaraus);
-	System.out.println("Palveltujen asiakkaiden kokonaismäärä  Peruutus (C): " + asiakaslkmPeruutus);
-	System.out.println("Palveltujen asiakkaiden kokonaismäärä  Neuvonta (C): " + asiakaslkmNeuvonta);
-	System.out.println("Palveltujen asiakkaiden kokonaismäärä (C): " + pA);
+	Trace.out(Trace.Level.INFO,"Palveltujen asiakkaiden kokonaismäärä  Varaus (C): " + asiakaslkmVaraus);
+	Trace.out(Trace.Level.INFO,"Palveltujen asiakkaiden kokonaismäärä  Peruutus (C): " + asiakaslkmPeruutus);
+	Trace.out(Trace.Level.INFO,"Palveltujen asiakkaiden kokonaismäärä  Neuvonta (C): " + asiakaslkmNeuvonta);
+	Trace.out(Trace.Level.INFO,"Palveltujen asiakkaiden kokonaismäärä (C): " + (asiakaslkmVaraus + asiakaslkmPeruutus + asiakaslkmNeuvonta));
+	Trace.out(Trace.Level.INFO,"\n");
 	
-	System.out.println("Palvelupisteen Varaus aktiiviaika (B): " + palvelupisteet[1].getB());
-	System.out.println("Palvelupisteen Peruutus aktiiviaika (B): " + palvelupisteet[2].getB());
-	System.out.println("Palvelupisteen Neuvonta aktiiviaika (B): " + palvelupisteet[3].getB());
+	Trace.out(Trace.Level.INFO,"Palvelupisteen Varaus aktiiviaika (B): " + palvelupisteet[1].getB());
+	Trace.out(Trace.Level.INFO,"Palvelupisteen Peruutus aktiiviaika (B): " + palvelupisteet[2].getB());
+	Trace.out(Trace.Level.INFO,"Palvelupisteen Neuvonta aktiiviaika (B): " + palvelupisteet[3].getB());
+	Trace.out(Trace.Level.INFO,"\n");
 	
-	System.out.println("Palvelupisteen Varaus käyttöaste (U): " + (palvelupisteet[1].getB()/(double)paattymisAika)*100);
-	System.out.println("Palvelupisteen Peruutus käyttöaste (U): " + (palvelupisteet[2].getB()/(double)paattymisAika)*100);
-	System.out.println("Palvelupisteen Neuvonta käyttöaste (U): " + (palvelupisteet[3].getB()/(double)paattymisAika)*100);
+	Trace.out(Trace.Level.INFO,"Palvelupisteen Varaus käyttöaste (U): " + (palvelupisteet[1].getB()/(double)paattymisAika)*100);
+	Trace.out(Trace.Level.INFO,"Palvelupisteen Peruutus käyttöaste (U): " + (palvelupisteet[2].getB()/(double)paattymisAika)*100);
+	Trace.out(Trace.Level.INFO,"Palvelupisteen Neuvonta käyttöaste (U): " + (palvelupisteet[3].getB()/(double)paattymisAika)*100);
+	Trace.out(Trace.Level.INFO,"\n");
 	
-	System.out.println("Palvelupisteen Varaus suoritusteho (X): " + (asiakaslkmVaraus/(double)paattymisAika)*100);
-	System.out.println("Palvelupisteen Peruutus suoritusteho (X): " + (asiakaslkmPeruutus/(double)paattymisAika)*100);
-	System.out.println("Palvelupisteen Neuvonta suoritusteho (X): " + (asiakaslkmNeuvonta/(double)paattymisAika)*100);
+	Trace.out(Trace.Level.INFO,"Palvelupisteen Varaus suoritusteho (X): " + (asiakaslkmVaraus/(double)paattymisAika)*100);
+	Trace.out(Trace.Level.INFO,"Palvelupisteen Peruutus suoritusteho (X): " + (asiakaslkmPeruutus/(double)paattymisAika)*100);
+	Trace.out(Trace.Level.INFO,"Palvelupisteen Neuvonta suoritusteho (X): " + (asiakaslkmNeuvonta/(double)paattymisAika)*100);
+	Trace.out(Trace.Level.INFO,"\n");
 	
-	System.out.println("Palvelupisteen Varaus keskimääräinen palveluaika (S): " + (palvelupisteet[1].getB()/(double)asiakaslkmVaraus));
-	System.out.println("Palvelupisteen Peruutus keskimääräinen palveluaika (S): " + (palvelupisteet[2].getB()/(double)asiakaslkmPeruutus));
-	System.out.println("Palvelupisteen Neuvonta keskimääräinen palveluaika (S): " + (palvelupisteet[3].getB()/(double)asiakaslkmNeuvonta));
+	Trace.out(Trace.Level.INFO,"Palvelupisteen Varaus keskimääräinen palveluaika (S): " + (palvelupisteet[1].getB()/(double)asiakaslkmVaraus));
+	Trace.out(Trace.Level.INFO,"Palvelupisteen Peruutus keskimääräinen palveluaika (S): " + (palvelupisteet[2].getB()/(double)asiakaslkmPeruutus));
+	Trace.out(Trace.Level.INFO,"\n");
 
 	
 	
 	
 	a.getId();
-	System.out.println("" + a.toString());
+	Trace.out(Trace.Level.INFO,"" + a.toString());
 	kontrolleri.naytaLoppuaika(kello.getAika());
 	//kontrolleri.naytaAsiakasmaara(palvelupisteet[0].getAsiakkaidenmaara());
 	kontrolleri.naytaAsiakkaat(palvelupisteet[0].getAsiakkaidenmaara(), palvelupisteet[1].getAsiakkaidenmaara(), palvelupisteet[2].getAsiakkaidenmaara(), palvelupisteet[3].getAsiakkaidenmaara());
-	Trace.out(Trace.Level.INFO, "0: " +(palvelupisteet[0].jononPituus()));
-	Trace.out(Trace.Level.INFO, "1: " +(palvelupisteet[1].jononPituus()));
-	Trace.out(Trace.Level.INFO, "2: " +(palvelupisteet[2].jononPituus()));
-	Trace.out(Trace.Level.INFO, "3: " +(palvelupisteet[3].jononPituus()));
 	
-	Trace.out(Trace.Level.INFO, "0: " +(palvelupisteet[0].getAsiakkaidenmaara()));
-	Trace.out(Trace.Level.INFO, "1: " +(palvelupisteet[1].getAsiakkaidenmaara()));
-	Trace.out(Trace.Level.INFO, "2: " +(palvelupisteet[2].getAsiakkaidenmaara()));
-	Trace.out(Trace.Level.INFO, "3: " +(palvelupisteet[3].getAsiakkaidenmaara()));
+	
+
 	//kontrolleri.naytaJononpituus(palvelupisteet[0].jononPituus());
 	System.out.println("Asiakaslukumäärät " + asiakaslkmValikko);
 	System.out.println("Palveluajat " + poistumisaikaValikko);
