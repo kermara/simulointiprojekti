@@ -1,5 +1,7 @@
 package Controller;
 
+import javafx.collections.ObservableList;
+
 public interface IKontrolleri {
 	
 	// käyttöliittymä:
@@ -23,5 +25,7 @@ public interface IKontrolleri {
 	
 	public int syoteNormalVasen();
 	public int syoteNormalOikea();
+	
+	public void naytaTulokset(ObservableList<String> tiedot);
 
 }

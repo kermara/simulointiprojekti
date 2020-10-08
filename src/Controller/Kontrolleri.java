@@ -2,6 +2,7 @@ package Controller;
 
 import application.IGUI;
 import javafx.application.Platform;
+import javafx.collections.ObservableList;
 import model.IMoottori;
 import model.Moottori;
 
@@ -36,6 +37,10 @@ public class Kontrolleri implements IKontrolleri {
 	@Override
 	public void naytaLoppuaika(long aika) {
 		Platform.runLater(()->igui.setLoppuaika(aika));
+	}
+	
+	public void naytaTulokset(ObservableList<String> tiedot) {
+		igui.naytaTulokset(tiedot);
 	}
 
 	@Override

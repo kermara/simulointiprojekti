@@ -78,7 +78,7 @@ public class PalvelupisteAccessObject implements IPalvelupisteDAO {
 		int i = 0;
 		try (Session session = sessionfactory.openSession()) {
 			transaction = session.beginTransaction();
-			List<Palvelupiste> ppList = session.createQuery("from  tapahtumat").getResultList();
+			List<Palvelupiste> ppList = session.createQuery("from palvelupstekanta").getResultList();
 			ppisteet = new Palvelupiste[ppList.size()];
 
 			for(Palvelupiste p : ppList) {

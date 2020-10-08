@@ -1,12 +1,12 @@
 package application;
 
-import java.io.FileInputStream;
-import java.io.ObjectInputStream;
+
 
 import Controller.IKontrolleri;
 import Controller.Kontrolleri;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -20,17 +20,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -51,8 +48,6 @@ public class Main extends Application implements IGUI{
 	private TextField aika;
 	private TextField viive;
 	private TextField tulos;
-	private TextField asiakasmaara;
-	private TextField jononp;
 	private TextField vasenluku;
 	private TextField oikealuku;
 	private Button kaynnistaButton;
@@ -62,6 +57,7 @@ public class Main extends Application implements IGUI{
 	Duration duration;
 	
 	private View view;
+	private ListView<String> tiedotList;
 		
 	@Override
 	public void init() {
@@ -110,25 +106,25 @@ public class Main extends Application implements IGUI{
 		        Text aikaText = new Text("Aseta simulointiaika (ms): ");
        
 		
-		aika = new TextField("Simulointiaika ");
+		aika = new TextField("1000");
 		aika.setFont(Font.font("Helvetica", FontWeight.NORMAL, 15));
 		aika.setPrefWidth(150);
 		
 		Text viiveText = new Text("Aseta viive (ms): ");
 		
-		viive = new TextField("Viive");
+		viive = new TextField("500");
 		viive.setFont(Font.font("Helvetica", FontWeight.NORMAL,15));
 		viive.setPrefWidth(150);
 		
 		Text vasenlukuText = new Text("Aseta jakauman korkeus: ");
 		
-		vasenluku = new TextField("Jakauman korkeus");
+		vasenluku = new TextField("3");
 		vasenluku .setFont(Font.font("Helvetica", FontWeight.NORMAL,15));
 		vasenluku .setPrefWidth(150);
 		
 		Text oikealukuText = new Text("Aseta jakauman leveys: ");
 		
-		oikealuku = new TextField("Jakauman leveys");
+		oikealuku = new TextField("2");
 		oikealuku .setFont(Font.font("Helvetica", FontWeight.NORMAL,15));
 		oikealuku.setPrefWidth(150);
 		
@@ -195,16 +191,16 @@ public class Main extends Application implements IGUI{
 		grid.add(tulosText, 0, 12);
 		grid.add(tulos,0, 13);
 		
-		/*
-		grid.add(asiakasmaaraText, 0, 7);
-		grid.add(asiakasmaara, 0, 8);
-		grid.add(jononpText, 0, 9);
-		grid.add(jononp, 0, 10);
-		*/
-		
-			
 		view = new View(600, 400);
-		hbox.getChildren().addAll(grid, view);
+		
+		Label tiedotLabel = new Label("Tulokset: ");
+		tiedotLabel.setLabelFor(tiedotList);
+		tiedotList = new ListView<>();
+		tiedotList.setPrefSize(600, 400);
+		tiedotList.setBackground(new Background(new BackgroundFill(Color.valueOf("#54C6EB"), null,null)));
+
+				
+		hbox.getChildren().addAll(grid, view, tiedotLabel, tiedotList);
 		return hbox;
 	}
 	
@@ -315,20 +311,12 @@ public class Main extends Application implements IGUI{
 		return Integer.parseInt(oikealuku.getText());
 	}
 	
-
-
-
-	/*
-	public void setAsiakasmaara(int i) {
-		this.asiakasmaara.setText("" +i);
+	public void naytaTulokset(ObservableList<String> tiedot) {
+		 tiedotList.setItems(tiedot);
 	}
-
+}
 	
 
-	@Override
-	public void setJononpituus(int i) {
-		this.jononp.setText(""+1);
-		
-	}
-	*/
-}
+
+
+

@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import eduni.distributions.ContinuousGenerator;
 
@@ -19,6 +20,8 @@ public class Palvelupiste {
 	
 	private LinkedList<Asiakas> jono = new LinkedList<Asiakas>();
 	private ContinuousGenerator generaattori;
+	private ArrayList<Palvelupiste> pisteet = new ArrayList<>();
+	private PalvelupisteAccessObject palveluDAO;
 	
 	private boolean varattu = false;
 	@Id
@@ -39,10 +42,17 @@ public class Palvelupiste {
 	}
 	
 	public Palvelupiste(int id, TapahtumanTyyppi palvelutyyppi, int asiakkaidenlkm, long palveluaikaB) {
+		/*
 		this.id= id;
 		this.palvelutyyppi = palvelutyyppi;
 		this.asiakkaidenlkm = asiakkaidenlkm;
 		this.palveluaikaB = palveluaikaB;
+		*/
+		palveluDAO = new PalvelupisteAccessObject();
+		Palvelupiste[] pisteetArray = palveluDAO.readpalvelupisteet();
+		for (Palvelupiste p : pisteetArray) {
+			pisteet.add(p);
+		}
 	}
 	
 	public Palvelupiste() {

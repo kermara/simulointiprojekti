@@ -28,7 +28,7 @@ public class View extends Canvas{
 		
 		
 		
-		gc.strokeText("Valikkoon tulleet asiakkaat",50, 50);
+		gc.strokeText("Jonossa olevat asiakkaat",50, 50);
 		gc.strokeText("Valikko",130, 150);
 		gc.drawImage(new Image("file:resources/images/puhelinpalvelu.png"), 130, 155);
 		gc.strokeText("Palvellut asiakkaat",450, 30);
@@ -51,13 +51,13 @@ public class View extends Canvas{
 	
 			for(int x = 0; x <jononPituus; x++) {
 		
-			gc.fillRect(i,j,20,20);
+			gc.fillOval(i,j,15,15);
 				i = (i+ 30)% this.getWidth(); 
 		}
 	}
 	
 	public void jono2(int jononPituus) {
-		i =250;
+		i =200;
 		j = 100;
 		
 		//tyhjennaNaytto();
@@ -65,7 +65,7 @@ public class View extends Canvas{
 	
 			for(int x = 0; x <jononPituus; x++) {
 		
-			gc.fillRect(i,j,20,20);
+			gc.fillOval(i,j,15,15);
 		
 				i = (i+ 30); 
 				j= (j - 15); 
@@ -75,15 +75,15 @@ public class View extends Canvas{
 	}
 
 		public void jono3(int jononPituus) {
-			i =250;
-		j = 150;
+			i =200;
+		j = 170;
 		
 		//tyhjennaNaytto();
 		gc.setFill(Color.valueOf("#D6053D"));	
 	
 			for(int x = 0; x <jononPituus; x++) {
 		
-			gc.fillRect(i,j,20,20);
+			gc.fillOval(i,j,15,15);
 		
 				i = (i+ 30); 
 				
@@ -91,7 +91,7 @@ public class View extends Canvas{
 	}
 
 	public void jono4(int jononPituus) {
-		i =250;
+		i =200;
 	j = 250;
 	
 	//tyhjennaNaytto();
@@ -99,7 +99,7 @@ public class View extends Canvas{
 
 		for(int x = 0; x <jononPituus; x++) {
 	
-		gc.fillRect(i,j,20,20);
+		gc.fillOval(i,j,15,15);
 	
 			i = (i+ 30); 
 			j= (j + 15); 
