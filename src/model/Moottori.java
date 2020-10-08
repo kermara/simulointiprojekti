@@ -1,6 +1,9 @@
 package model;
 
-import java.util.Random;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 import Controller.IKontrolleri;
 import eduni.distributions.Normal;
@@ -80,8 +83,12 @@ public void run() {
 		suoritaBTapahtumat();
 		yritaCTapahtumat();
 		
-		kontrolleri.paivitaNaytto(asiakaslkmValikko, getAsiakaslkmVaraus(), getAsiakaslkmPeruutus(), getAsiakaslkmNeuvonta());
-		//kontrolleri.paivitaNaytto(palvelupisteet[0].jononPituus(), palvelupisteet[1].jononPituus(), palvelupisteet[2].jononPituus(), palvelupisteet[3].jononPituus());
+		kontrolleri.naytaAsiakkaat(asiakaslkmValikko, asiakaslkmVaraus, asiakaslkmPeruutus,asiakaslkmNeuvonta, getpA());
+		kontrolleri.jono1(palvelupisteet[0].jononPituus());
+		kontrolleri.jono2(palvelupisteet[1].jononPituus());
+		kontrolleri.jono3(palvelupisteet[2].jononPituus());
+		kontrolleri.jono4(palvelupisteet[3].jononPituus());
+		
 		Trace.out(Trace.Level.INFO, "0: " +(palvelupisteet[0].jononPituus()));
 		Trace.out(Trace.Level.INFO, "1: " +(palvelupisteet[1].jononPituus()));
 		Trace.out(Trace.Level.INFO, "2: " +(palvelupisteet[2].jononPituus()));
@@ -217,16 +224,19 @@ public int getAsiakaslkmNeuvonta() {
 	return asiakaslkmNeuvonta;
 }
 
+
 public int getpA() {
-	int varaus = palvelupisteet[1].getAsiakkaidenmaara() - palvelupisteet[1].jononPituus();
-	int peruutus =   palvelupisteet[2].getAsiakkaidenmaara() - palvelupisteet[2].jononPituus();
-	int neuvonta =  palvelupisteet[3].getAsiakkaidenmaara() - palvelupisteet[3].jononPituus();
-	int pA = varaus + peruutus + neuvonta;
+	pA = getAsiakaslkmVaraus() + getAsiakaslkmPeruutus() + getAsiakaslkmNeuvonta();
 	return pA;
 }
 
-
 private void tulokset() {
+	
+	try (FileOutputStream tiedosto = new FileOutputStream("tulokset.data");
+			ObjectOutputStream tulosta =  new ObjectOutputStream(tiedosto); )
+	{
+	
+	
 	System.out.println("Tulokset" );
 	
 	Trace.out(Trace.Level.INFO, "Saapuneiden asiakkaiden määrä valikko (A): " +(palvelupisteet[0].getAsiakkaidenmaara()));
@@ -277,14 +287,19 @@ private void tulokset() {
 	a.getId();
 	Trace.out(Trace.Level.INFO,"" + a.toString());
 	kontrolleri.naytaLoppuaika(kello.getAika());
-	//kontrolleri.naytaAsiakasmaara(palvelupisteet[0].getAsiakkaidenmaara());
-	kontrolleri.naytaAsiakkaat(palvelupisteet[0].getAsiakkaidenmaara(), palvelupisteet[1].getAsiakkaidenmaara(), palvelupisteet[2].getAsiakkaidenmaara(), palvelupisteet[3].getAsiakkaidenmaara());
+	
+	
 	
 	
 
 	//kontrolleri.naytaJononpituus(palvelupisteet[0].jononPituus());
 	System.out.println("Asiakaslukumäärät " + asiakaslkmValikko);
 	System.out.println("Palveluajat " + poistumisaikaValikko);
+	
+	}catch (Exception e) {
+		e.printStackTrace();
+		}
+	}
 }
 
 
@@ -302,4 +317,5 @@ private void tulokset() {
 
 
 
-}
+
+

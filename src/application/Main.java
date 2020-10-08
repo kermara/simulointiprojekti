@@ -1,5 +1,8 @@
 package application;
 
+import java.io.FileInputStream;
+import java.io.ObjectInputStream;
+
 import Controller.IKontrolleri;
 import Controller.Kontrolleri;
 import javafx.application.Application;
@@ -38,6 +41,7 @@ public class Main extends Application implements IGUI{
 	
 	private IKontrolleri kontrolleri;
 	
+
 	//Käyttöliittymä
 	
 	HBox hbox;
@@ -51,10 +55,9 @@ public class Main extends Application implements IGUI{
 	private TextField jononp;
 	private TextField vasenluku;
 	private TextField oikealuku;
-	private ToggleGroup tg; 
-	private RadioButton kaynnistaButton;
-	private RadioButton hidastaButton;
-	private RadioButton nopeutaButton;
+	private Button kaynnistaButton;
+	private Button hidastaButton;
+	private Button nopeutaButton;
 	
 	Duration duration;
 	
@@ -80,8 +83,9 @@ public class Main extends Application implements IGUI{
 			
 			primaryStage.setTitle("Puhelinpalvelusimulaattori - Normaalijakauma");
 			primaryStage.getIcons().add(new Image("file:resources/images/icon.png"));
-			kaynnistaButton = new RadioButton();
+			kaynnistaButton = new Button();
 			kaynnistaButton.setText("Käynnistä");
+			kaynnistaButton.setFont(Font.font("Helvetica", FontWeight.EXTRA_BOLD, 20));
 			kaynnistaButton.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent event) {
@@ -102,39 +106,8 @@ public class Main extends Application implements IGUI{
 	}
 	
 	private HBox createHbox() {
-		TilePane toiminto = new TilePane();
-		toiminto.setMaxWidth(7);
-		toiminto.setAlignment(Pos.CENTER);
 		
-		Label l = new Label("Valitse toiminto:      "); 
-		l.setFont(Font.font("Helvetica", FontWeight.BLACK, 20));
-		
-		tg = new ToggleGroup(); 
-		
-		nopeutaButton = new RadioButton();
-		nopeutaButton.setText("Nopeuta ");
-		nopeutaButton.setOnAction(e-> kontrolleri.nopeuta());
-		
-		hidastaButton = new RadioButton();
-		hidastaButton.setText("Hidasta  ");
-		hidastaButton.setOnAction(e -> kontrolleri.hidasta());
-		
-			
-		// add radiobuttons to toggle group 
-        kaynnistaButton.setToggleGroup(tg); 
-        nopeutaButton.setToggleGroup(tg); 
-        hidastaButton.setToggleGroup(tg); 
-  
-        // add label 
-        
-        toiminto.getChildren().add(l); 
-        toiminto.getChildren().add(kaynnistaButton); 
-        toiminto.getChildren().add(nopeutaButton); 
-        toiminto.getChildren().add(hidastaButton); 
-        //r.getChildren().add(l2); 
-        
-     
-        Text aikaText = new Text("Aseta simulointiaika (ms): ");
+		        Text aikaText = new Text("Aseta simulointiaika (ms): ");
        
 		
 		aika = new TextField("Simulointiaika ");
@@ -158,6 +131,19 @@ public class Main extends Application implements IGUI{
 		oikealuku = new TextField("Jakauman leveys");
 		oikealuku .setFont(Font.font("Helvetica", FontWeight.NORMAL,15));
 		oikealuku.setPrefWidth(150);
+		
+		Label l = new Label("Valitse toiminto:      "); 
+		l.setFont(Font.font("Helvetica", FontWeight.EXTRA_BOLD, 20));
+		
+		nopeutaButton = new Button();
+		nopeutaButton.setText("Nopeuta ");
+		nopeutaButton.setFont(Font.font("Helvetica", FontWeight.EXTRA_BOLD, 20));
+		nopeutaButton.setOnAction(e-> kontrolleri.nopeuta());
+		
+		hidastaButton = new Button();
+		hidastaButton.setText("Hidasta  ");
+		hidastaButton.setFont(Font.font("Helvetica", FontWeight.EXTRA_BOLD, 20));
+		hidastaButton.setOnAction(e -> kontrolleri.hidasta());
 		
 		Text tulosText = new Text("Simuloinnin kokonaisaika (s): ");
 		
@@ -202,9 +188,12 @@ public class Main extends Application implements IGUI{
 		grid.add(vasenluku,0,5);
 		grid.add(oikealukuText,0, 6);
 		grid.add(oikealuku,0,7);
-		grid.add(toiminto, 0, 8);
-		grid.add(tulosText, 0, 9);
-		grid.add(tulos,0, 10);
+		grid.add(l,0, 8);
+		grid.add(kaynnistaButton, 0, 9);
+		grid.add(nopeutaButton, 0, 10);
+		grid.add(hidastaButton,0, 11);
+		grid.add(tulosText, 0, 12);
+		grid.add(tulos,0, 13);
 		
 		/*
 		grid.add(asiakasmaaraText, 0, 7);
@@ -214,7 +203,7 @@ public class Main extends Application implements IGUI{
 		*/
 		
 			
-		view = new View(400, 400);
+		view = new View(600, 400);
 		hbox.getChildren().addAll(grid, view);
 		return hbox;
 	}
@@ -326,50 +315,9 @@ public class Main extends Application implements IGUI{
 		return Integer.parseInt(oikealuku.getText());
 	}
 	
-	/*
-	  private boolean isInputValid() {
-	        
 
-	        if (viive.getText() == null || viive.getText().length() == 0) {
-	            try {
-	                Integer.parseInt(viive.getText());
-	            } catch (NumberFormatException e) {
-	                errorMessage += "Syötä viiveaika numeroina\n"; 
-	            }
-	        }
-	        if (vasenluku.getText() == null || vasenluku.getText().length() == 0) {
-	            try {
-	                Integer.parseInt(aika.getText());
-	            } catch (NumberFormatException e) {
-	                errorMessage += "Syötä jakauman korkeus numeroina\n"; 
-	            }
-	        }
 
-	        if (oikealuku.getText() == null || oikealuku.getText().length() == 0) {
-	        } else {
-	            try {
-	                Integer.parseInt(aika.getText());
-	            } catch (NumberFormatException e) {
-	                errorMessage += "Syötä jakauman leveys numeroina\n"; 
-	            }
-	        }
 
-	        if (errorMessage.length() == 0) {
-	            return true;
-	        } else {
-	            // Show the error message.
-	            Alert alert = new Alert(AlertType.ERROR);
-	            alert.initOwner(dialogStage);
-	            alert.setTitle("Virheitä syötteissä");
-	            alert.setHeaderText("Korjaa syötteet luvuiksi");
-	            alert.setContentText(errorMessage);
-	            
-	            alert.showAndWait();
-	            
-	            return false;
-	        }
-	    }
-}
 	/*
 	public void setAsiakasmaara(int i) {
 		this.asiakasmaara.setText("" +i);

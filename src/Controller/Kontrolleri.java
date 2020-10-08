@@ -43,31 +43,12 @@ public class Kontrolleri implements IKontrolleri {
 		Platform.runLater(new Runnable() {
 			@Override
 			public void run() {
-				igui.getVisualisointi().uusiAsiakas(id);
 				
 			}
 		});
 	}
 	
-	
-	public void paivitaNaytto(int lkm1, int lkm2, int lkm3, int lkm4) {
-	//Platform.runLater(()->igui.getVisualisointi().paivitaNaytto(lkm1, lkm2, lkm3, lkm4));
-	}
-	
-	public void naytaAsiakkaat(int lkm1, int lkm2, int lkm3, int lkm4) {
-		Platform.runLater(()->igui.getVisualisointi().naytaAsiakkaat(lkm1, lkm2, lkm3, lkm4));
-	}
-	
-	/*
-	public void naytaAsiakasmaara(int i) {
-		Platform.runLater(()-> igui.setAsiakasmaara(i));
-	}
 
-	
-	public void naytaJononpituus(int i) {
-		Platform.runLater(()-> igui.setJononpituus(i));
-	}
-	*/
 	@Override
 	public int syoteNormalVasen() {
 		return igui.getSyoteNormalVasen();
@@ -75,9 +56,39 @@ public class Kontrolleri implements IKontrolleri {
 
 	@Override
 	public int syoteNormalOikea() {
-
 		return igui.getSyoteNormalOikea();
 	}
+
+	@Override
+	public void jono1(int jononPituus) {
+		Platform.runLater(()->igui.getVisualisointi().jono1(jononPituus));	
+	}
+
+	@Override
+	public void jono2(int jononPituus) {
+		Platform.runLater(()->igui.getVisualisointi().jono2(jononPituus));	
+		
+	}
+
+	@Override
+	public void jono3(int jononPituus) {
+		Platform.runLater(()->igui.getVisualisointi().jono3(jononPituus));	
+		
+	}
+
+	@Override
+	public void jono4(int jononPituus) {
+		Platform.runLater(()->igui.getVisualisointi().jono4(jononPituus));	
+		
+	}
+	@Override
+	public void naytaAsiakkaat(int lkm, int lkm1, int lkm2, int lkm3, int lkm4) {
+		Platform.runLater(()->igui.getVisualisointi().naytaAsiakkaat(lkm, lkm1, lkm2, lkm3, lkm4));
+		
+	}
+
+	
+
 	
 	
 }

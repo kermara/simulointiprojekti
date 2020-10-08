@@ -11,8 +11,7 @@ public interface IGUI {
 	//Kontrolleri antaa käyttöliittymälle tuloksia, joita Moottori tuottaa 
 	public void setLoppuaika(long aika);
 	public View getVisualisointi();
-	//public void setAsiakasmaara(int i);
-	//public void setJononpituus(int i);
+	
 
 	
 

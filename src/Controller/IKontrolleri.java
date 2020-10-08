@@ -12,10 +12,15 @@ public interface IKontrolleri {
 	
 	public void naytaLoppuaika(long aika);
 	public void visualisoiAsiakas(int id);
-	//public void naytaAsiakasmaara(int i);
-	//public void naytaJononpituus(int i);
-	public void paivitaNaytto(int jononPituus, int jononPituus2, int jononPituus3, int jononPituus4);
-	public void naytaAsiakkaat(int jononPituus, int jononPituus2, int jononPituus3, int jononPituus4);
+	
+	public void naytaAsiakkaat(int lkm, int lkm1, int lkm2, int lkm3, int lkm4);
+
+	public void jono1(int jononPituus);
+	public void jono2(int jononPituus);
+	public void jono3(int jononPituus);
+	public void jono4(int jononPituus);
+	
+	
 	public int syoteNormalVasen();
 	public int syoteNormalOikea();
 
