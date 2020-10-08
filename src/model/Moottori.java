@@ -232,7 +232,7 @@ public int getpA() {
 
 private void tulokset() {
 	
-	try (FileOutputStream tiedosto = new FileOutputStream("tulokset.data");
+	try (FileOutputStream tiedosto = new FileOutputStream("data\\tulokset.data");
 			ObjectOutputStream tulosta =  new ObjectOutputStream(tiedosto); )
 	{
 	
